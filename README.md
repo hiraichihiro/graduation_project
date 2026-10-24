@@ -1,3 +1,6 @@
+### 画面遷移図
+Figma：<https://www.figma.com/design/PJKV7bkooahlFyXmWa5hXL/%E5%8D%92%E6%A5%AD%E5%88%B6%E4%BD%9C%E3%80%8078%E6%9C%9F%E3%80%80%E5%B9%B3%E4%BA%95%E5%8D%83%E5%B0%8B?node-id=0-1&t=f76xKL4bURlryTf6-1>
+
 ## 1. サービス概要（※最後に書いてOK）
 
 - このサービスはどんなサービスか（3行以内）
