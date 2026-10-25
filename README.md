@@ -1,5 +1,5 @@
 ### ER図
-[![Image from Gyazo](https://i.gyazo.com/b7668a9358a24d110a7d0cae65ff9138.png)](https://gyazo.com/b7668a9358a24d110a7d0cae65ff9138)
+[![Image from Gyazo](https://i.gyazo.com/b050939ec417833af5872ac4b9716b42.png)](https://gyazo.com/b050939ec417833af5872ac4b9716b42)
 
 ## 1. サービス概要（※最後に書いてOK）
 
