@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  title: MyString
+  target_amount: 1
+  deadline: 2026-10-28
+  link_url: MyString
+  memo: MyText
+  fulfilled_at: 2026-10-28 18:21:01
+
+two:
+  user: two
+  title: MyString
+  target_amount: 1
+  deadline: 2026-10-28
+  link_url: MyString
+  memo: MyText
+  fulfilled_at: 2026-10-28 18:21:01
