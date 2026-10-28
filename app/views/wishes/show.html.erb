@@ -28,8 +28,10 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
       <%= link_to "← 一覧に戻る", wishes_path, style: "color: #ff99bb; text-decoration: none; font-weight: bold;" %>
       
-      <div>
+      <div style="display: flex; gap: 10px; align-items: center;">
         <%= link_to "✏️ 編集する", edit_wish_path(@wish), style: "background: #ffe6f2; color: #6d5b71; padding: 8px 16px; border-radius: 15px; text-decoration: none; font-weight: bold; font-size: 14px;" %>
+        
+        <%= button_to "🗑️ 削除する", wish_path(@wish), method: :delete, data: { turbo_confirm: "本当にこの叶えたいこと・欲しいものを削除しますか？" }, style: "background: #fff0f5; color: #d87093; border: 1px solid #ffb6c1; padding: 8px 16px; border-radius: 15px; font-weight: bold; font-size: 14px; cursor: pointer;" %>
       </div>
     </div>
 
