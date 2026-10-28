@@ -6,7 +6,7 @@ class WishesController < ApplicationController
   def create
     @wish = current_user.wishes.build(wish_params)
     if @wish.save
-      redirect_to wishes_path, notice: '叶えたいことを登録しました！' # 一覧画面などの遷移先
+      redirect_to wishes_path, notice: '叶えたいこと・欲しいものを登録しました！' # 一覧画面などの遷移先
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,10 +27,16 @@ class WishesController < ApplicationController
   def update
     @wish = current_user.wishes.find(params[:id])
     if @wish.update(wish_params)
-      redirect_to wish_path(@wish), notice: '叶えたいことを更新しました！'
+      redirect_to wish_path(@wish), notice: '叶えたいこと・欲しいものを更新しました！'
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @wish = current_user.wishes.find(params[:id])
+    @wish.destroy
+    redirect_to wishes_path, notice: '叶えたいこと・欲しいものを削除しました。', status: :see_other
   end
 
   private
