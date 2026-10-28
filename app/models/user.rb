@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  has_many :wishes, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :email, presence: true, length: { maximum: 255 },
