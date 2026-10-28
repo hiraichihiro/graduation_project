@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   post "login", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
 
-  # 叶えたいことの作成・保存
-  resources :wishes, only: [:index, :new, :create, :show]
+  # 叶えたいこと
+  resources :wishes, only: [:index, :new, :create, :show, :edit, :update]
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
