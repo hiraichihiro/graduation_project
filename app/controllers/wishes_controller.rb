@@ -12,6 +12,10 @@ class WishesController < ApplicationController
     end
   end
 
+  def index
+    @wishes = current_user.wishes.order(created_at: :desc)
+  end
+
   private
 
   def wish_params
