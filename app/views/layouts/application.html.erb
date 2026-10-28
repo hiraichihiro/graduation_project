@@ -24,6 +24,12 @@
   </head>
 
   <body class="bg-pink-50 text-gray-700" style="font-family: 'M PLUS Rounded 1c', sans-serif;">
+    <!-- フラッシュメッセージ表示エリア（枠線をなしにしてスッキリ版） -->
+    <% flash.each do |message_type, message| %>
+      <div style="background: #fff0f5; color: #ff80bf; padding: 12px 24px; border-radius: 20px; margin: 15px auto; max-width: 500px; text-align: center; font-weight: 700;">
+        <%= message %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
