@@ -13,11 +13,23 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- Google Fonts: ぷっくり可愛い丸ゴシック (M PLUS Rounded 1c) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
+  <body class="bg-pink-50 text-gray-700" style="font-family: 'M PLUS Rounded 1c', sans-serif;">
+    <!-- フラッシュメッセージ表示エリア（枠線をなしにしてスッキリ版） -->
+    <% flash.each do |message_type, message| %>
+      <div style="background: #fff0f5; color: #ff80bf; padding: 12px 24px; border-radius: 20px; margin: 15px auto; max-width: 500px; text-align: center; font-weight: 700;">
+        <%= message %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
