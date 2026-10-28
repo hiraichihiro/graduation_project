@@ -11,8 +11,8 @@
     <% end %>
 
     <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 24px; color: #6d5b71; font-size: 15px;">
-      <p style="margin: 8px 0;">💰 目標金額: <strong>¥<%= number_to_currency(@wish.target_amount, unit: "", precision: 0) if @wish.target_amount.present? %></strong></p>
-      <p style="margin: 8px 0;">✨ 現在の貯金: <strong>0円 (0%)</strong></p>
+      <p style="margin: 8px 0;">🌟 目標金額: <strong>¥<%= number_to_currency(@wish.target_amount, unit: "", precision: 0) if @wish.target_amount.present? %></strong></p>
+      <p style="margin: 8px 0;">🫧  現在の貯金: <strong>0円 (0%)</strong></p>
       <p style="margin: 8px 0;">📅 目標期限: <strong><%= @wish.deadline.strftime("%Y年%m月%d日") if @wish.deadline.present? %></strong></p>
       
       <% if @wish.link_url.present? %>
@@ -21,6 +21,52 @@
 
       <% if @wish.memo.present? %>
         <p style="margin: 8px 0;">📝 メモ: <%= @wish.memo %></p>
+      <% end %>
+    </div>
+
+    <!-- 💡 新しく追加した「貯金記録の入力フォーム」 -->
+    <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 24px; color: #6d5b71;">
+      <h3 style="color: #6d5b71; margin-top: 0; font-size: 18px;">💌 貯金を記録する</h3>
+      
+      <%= form_with(model: [@wish, Saving.new], local: true) do |f| %>
+        <div style="margin-bottom: 12px;">
+          <%= f.label :amount, "金額 (円)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
+          <%= f.number_field :amount, placeholder: "例: 1000", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <%= f.label :saved_at, "貯金した日付", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
+          <%= f.date_field :saved_at, value: Date.today, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <%= f.label :memo, "メモ (任意)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
+          <%= f.text_area :memo, placeholder: "お小遣いから、など", rows: 2, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+        </div>
+
+        <div>
+          <%= f.submit "貯金を記録する", style: "background: #ff99bb; color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%;" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 💡 新しく追加した「貯金履歴の一覧」 -->
+    <div style="margin-bottom: 24px; color: #6d5b71;">
+      <h3 style="color: #6d5b71; font-size: 18px;">🌱 貯金履歴</h3>
+      <% if @wish.savings.any? %>
+        <ul style="padding-left: 20px; margin: 0;">
+          <% @wish.savings.order(saved_at: :desc).each do |saving| %>
+            <li style="margin-bottom: 8px;">
+              <strong><%= saving.saved_at.strftime("%Y年%m月%d日") %></strong>：
+              <span style="color: #d87093; font-weight: bold;">¥<%= number_to_currency(saving.amount, unit: "", precision: 0) %></span>
+              <% if saving.memo.present? %>
+                （<%= saving.memo %>）
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p style="font-size: 14px; color: #999;">まだ貯金履歴はありません。</p>
       <% end %>
     </div>
 

@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
 
   # 叶えたいこと
-  resources :wishes, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :wishes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+    resources :savings, only: [:create, :destroy]
+  end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
