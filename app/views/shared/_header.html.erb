@@ -1,5 +1,18 @@
 <header class="bg-white shadow-sm mb-4 py-3 px-4">
-  <div class="container mx-auto">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- ロゴ・アプリ名 -->
     <%= link_to "Yumelist", root_path, class: "text-xl font-bold text-gray-700" %>
+
+    <!-- 認証状態に応じたボタン表示 -->
+    <nav class="flex items-center space-x-4">
+      <% if logged_in? %>
+        <span class="text-sm text-gray-600">こんにちは、<%= current_user.name %>さん</span>
+        <%= button_to "ログアウト", logout_path, method: :delete, class: "text-sm text-gray-600 hover:text-gray-800 cursor-pointer" %>
+      <% else %>
+        <%= link_to "ゲストログイン", users_guest_sign_in_path, data: { turbo_method: :post }, class: "text-sm text-pink-500 hover:text-pink-600 font-medium" %>
+        <%= link_to "ログイン", login_path, class: "text-sm text-gray-600 hover:text-gray-800" %>
+        <%= link_to "新規登録", signup_path, class: "text-sm bg-pink-400 text-white px-3 py-1.5 rounded-lg hover:bg-pink-500 transition" %>
+      <% end %>
+    </nav>
   </div>
 </header>
