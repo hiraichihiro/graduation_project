@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # 登録成功時の処理（あとでログイン状態の保持などを追加します）
+      # 登録成功時の処理（あとでログイン状態の保持
+      session[:user_id] = @user.id
       flash[:success] = "ユーザー登録が完了しました！"
       redirect_to root_path # いったんトップページに飛ばす設定にする
     else
