@@ -18,30 +18,30 @@
       </div>
     <% end %>
 
-    <!-- name -->
+   <!-- お名前 -->
     <div style="margin-bottom: 18px;">
-      <%= f.label :name, "name", style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
+      <%= f.label :name, style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
       <%= f.text_field :name, required: true, style: "width: 100%; border-radius: 14px; border: 1.5px solid #ffe6f2; padding: 10px 14px; background: #fffcfd; color: #8a7b8e; font-family: inherit; font-size: 0.95rem; box-sizing: border-box;" %>
     </div>
 
-    <!-- Email -->
+    <!-- メールアドレス -->
     <div style="margin-bottom: 18px;">
-      <%= f.label :email, "Email", style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
+      <%= f.label :email, style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
       <%= f.email_field :email, required: true, style: "width: 100%; border-radius: 14px; border: 1.5px solid #ffe6f2; padding: 10px 14px; background: #fffcfd; color: #8a7b8e; font-family: inherit; font-size: 0.95rem; box-sizing: border-box;" %>
     </div>
 
-    <!-- password -->
+    <!-- パスワード -->
     <div style="margin-bottom: 18px;">
-      <%= f.label :password, "password", style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
+      <%= f.label :password, style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
       <%= f.password_field :password, required: true, style: "width: 100%; border-radius: 14px; border: 1.5px solid #ffe6f2; padding: 10px 14px; background: #fffcfd; color: #8a7b8e; font-family: inherit; font-size: 0.95rem; box-sizing: border-box;" %>
     </div>
 
-    <!-- password Confirmation -->
+    <!-- パスワード（確認用） -->
     <div style="margin-bottom: 25px;">
-      <%= f.label :password_confirmation, "password Confirmation", style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
+      <%= f.label :password_confirmation, style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
       <%= f.password_field :password_confirmation, required: true, style: "width: 100%; border-radius: 14px; border: 1.5px solid #ffe6f2; padding: 10px 14px; background: #fffcfd; color: #8a7b8e; font-family: inherit; font-size: 0.95rem; box-sizing: border-box;" %>
     </div>
-
+    
     <!-- 登録ボタン -->
     <div style="margin-bottom: 20px;">
       <%= f.submit "登録", style: "width: 100%; border-radius: 25px; font-weight: 800; padding: 12px; background: #ffb3d9; border: none; font-size: 1rem; color: #ffffff; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 179, 217, 0.4); font-family: inherit;" %>
