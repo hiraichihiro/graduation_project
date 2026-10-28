@@ -50,18 +50,25 @@
       <% end %>
     </div>
 
-    <!-- 💡 新しく追加した「貯金履歴の一覧」 -->
+    <!-- 貯金履歴の一覧 -->
     <div style="margin-bottom: 24px; color: #6d5b71;">
       <h3 style="color: #6d5b71; font-size: 18px;">🌱 貯金履歴</h3>
       <% if @wish.savings.any? %>
         <ul style="padding-left: 20px; margin: 0;">
           <% @wish.savings.order(saved_at: :desc).each do |saving| %>
-            <li style="margin-bottom: 8px;">
-              <strong><%= saving.saved_at.strftime("%Y年%m月%d日") %></strong>：
-              <span style="color: #d87093; font-weight: bold;">¥<%= number_to_currency(saving.amount, unit: "", precision: 0) %></span>
-              <% if saving.memo.present? %>
-                （<%= saving.memo %>）
-              <% end %>
+            <li style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong><%= saving.saved_at.strftime("%Y年%m月%d日") %></strong>：
+                <span style="color: #d87093; font-weight: bold;">¥<%= number_to_currency(saving.amount, unit: "", precision: 0) %></span>
+                <% if saving.memo.present? %>
+                  （<%= saving.memo %>）
+                <% end %>
+              </div>
+              
+              <!-- 💡 ここに編集ボタンを追加しました！ -->
+              <div>
+                <%= link_to "編集", edit_wish_saving_path(@wish, saving), style: "background: #ffe6f2; color: #6d5b71; padding: 4px 10px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: bold;" %>
+              </div>
             </li>
           <% end %>
         </ul>
@@ -69,7 +76,7 @@
         <p style="font-size: 14px; color: #999;">まだ貯金履歴はありません。</p>
       <% end %>
     </div>
-
+    
     <!-- 下部のボタンエリア -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
       <%= link_to "← 一覧に戻る", wishes_path, style: "color: #ff99bb; text-decoration: none; font-weight: bold;" %>

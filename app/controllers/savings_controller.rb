@@ -11,6 +11,22 @@ class SavingsController < ApplicationController
     end
   end
 
+  def edit
+    @wish = Wish.find(params[:wish_id])
+    @saving = @wish.savings.find(params[:id])
+  end
+
+  def update
+    @wish = Wish.find(params[:wish_id])
+    @saving = @wish.savings.find(params[:id])
+    
+    if @saving.update(saving_params)
+      redirect_to wish_path(@wish), notice: '貯金記録を更新しました！'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def saving_params

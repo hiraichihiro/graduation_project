@@ -1,0 +1,29 @@
+<div style="max-width: 600px; margin: 40px auto; padding: 24px; font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;">
+  <div style="background: #fffcfd; border: 1.5px solid #ffe6f2; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(255,182,193,0.2);">
+    
+    <h2 style="color: #6d5b71; text-align: center; margin-top: 0; margin-bottom: 24px; font-size: 20px;">✏️ 貯金記録を編集する</h2>
+    
+    <%= form_with(model: [@wish, @saving], local: true) do |f| %>
+      <div style="margin-bottom: 12px;">
+        <%= f.label :amount, "金額 (円)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px; color: #6d5b71;" %>
+        <%= f.number_field :amount, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <%= f.label :saved_at, "貯金した日付", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px; color: #6d5b71;" %>
+        <%= f.date_field :saved_at, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <%= f.label :memo, "メモ (任意)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px; color: #6d5b71;" %>
+        <%= f.text_area :memo, rows: 2, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <%= f.submit "更新する", style: "background: #ff99bb; color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; flex: 1;" %>
+        <%= link_to "キャンセル", wish_path(@wish), style: "background: #ffe6f2; color: #6d5b71; text-align: center; padding: 10px 20px; border-radius: 12px; font-weight: bold; text-decoration: none; flex: 1;" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
