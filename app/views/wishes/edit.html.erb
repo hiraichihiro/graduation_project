@@ -1,0 +1,76 @@
+<div style="max-width: 600px; margin: 40px auto; padding: 24px; font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;">
+  
+  <div style="background: #fffcfd; border: 1.5px solid #ffe6f2; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(255,182,193,0.2);">
+    
+    <h2 style="color: #ff99bb; text-align: center; margin-top: 0; margin-bottom: 24px; font-weight: 700;">✏️ 叶えたいことを編集</h2>
+
+    <%= form_with(model: @wish, local: true, html: { style: "display: flex; flex-direction: column; gap: 20px;" }) do |f| %>
+
+      <%# エラーメッセージ表示（バリデーション用） %>
+      <% if @wish.errors.any? %>
+        <div style="background: #fff0f5; border: 1px solid #ffb6c1; padding: 15px; border-radius: 12px; color: #d87093; font-size: 14px;">
+          <p style="margin: 0 0 5px 0; font-weight: bold;">入力内容にエラーがあります：</p>
+          <ul style="margin: 0; padding-left: 20px;">
+            <% @wish.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div>
+        <%= f.label :title, "タイトル（叶えたいこと）", style: "display: block; color: #6d5b71; font-weight: bold; margin-bottom: 8px; font-size: 14px;" %>
+        <%= f.text_field :title, placeholder: "例：お気に入りのブランドのバッグ", style: "width: 100%; padding: 12px; border: 1.5px solid #ffe6f2; border-radius: 12px; box-sizing: border-box; font-size: 15px; background: #fff5f8; color: #6d5b71;" %>
+      </div>
+
+      <div>
+        <%= f.label :target_amount, "目標金額（円）", style: "display: block; color: #6d5b71; font-weight: bold; margin-bottom: 8px; font-size: 14px;" %>
+        <%= f.number_field :target_amount, placeholder: "例：50000", style: "width: 100%; padding: 12px; border: 1.5px solid #ffe6f2; border-radius: 12px; box-sizing: border-box; font-size: 15px; background: #fff5f8; color: #6d5b71;" %>
+      </div>
+
+      <div>
+        <%= f.label :deadline, "目標期限", style: "display: block; color: #6d5b71; font-weight: bold; margin-bottom: 8px; font-size: 14px;" %>
+        <%= f.date_field :deadline, style: "width: 100%; padding: 12px; border: 1.5px solid #ffe6f2; border-radius: 12px; box-sizing: border-box; font-size: 15px; background: #fff5f8; color: #6d5b71;" %>
+      </div>
+
+      <div>
+        <%= f.label :link_url, "参考リンク（URL）", style: "display: block; color: #6d5b71; font-weight: bold; margin-bottom: 8px; font-size: 14px;" %>
+        <%= f.text_field :link_url, placeholder: "https://...", style: "width: 100%; padding: 12px; border: 1.5px solid #ffe6f2; border-radius: 12px; box-sizing: border-box; font-size: 15px; background: #fff5f8; color: #6d5b71;" %>
+      </div>
+
+      <div>
+        <%= f.label :memo, "メモ", style: "display: block; color: #6d5b71; font-weight: bold; margin-bottom: 8px; font-size: 14px;" %>
+        <%= f.text_area :memo, rows: 4, placeholder: "カラーやサイズ、詳細など...", style: "width: 100%; padding: 12px; border: 1.5px solid #ffe6f2; border-radius: 12px; box-sizing: border-box; font-size: 15px; background: #fff5f8; color: #6d5b71; resize: vertical;" %>
+      </div>
+
+      <div>
+        <label style="display: block; color: #6d5b71; font-weight: bold; margin-bottom: 8px; font-size: 14px;">画像を添付</label>
+        
+        <label style="display: block; background: #fff5f8; border: 1.5px dashed #ffb6c1; border-radius: 12px; padding: 14px; color: #6d5b71; font-size: 14px; text-align: center; cursor: pointer; box-sizing: border-box;">
+          <span id="file-name-text">📷 クリックして画像を選ぶ</span>
+          <%= f.file_field :image, id: "wish-image-input", style: "display: none;" %>
+        </label>
+      </div>
+
+      <%# ファイルが選択されたときに文字を書き換える簡易スクリプト %>
+      <script>
+        document.getElementById('wish-image-input').addEventListener('change', function(e) {
+          if (e.target.files && e.target.files[0]) {
+            let fileName = e.target.files[0].name;
+            document.getElementById('file-name-text').textContent = '✨ 選択中: ' + fileName;
+          }
+        });
+      </script>
+
+      <div style="text-align: center; margin-top: 10px;">
+        <%= f.submit "変更を保存する", style: "background: #ffb6c1; color: white; border: none; padding: 14px 30px; border-radius: 25px; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4); width: 100%;" %>
+      </div>
+
+    <% end %>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <%= link_to "← 詳細に戻る", wish_path(@wish), style: "color: #ff99bb; text-decoration: none; font-weight: bold; font-size: 14px;" %>
+    </div>
+
+  </div>
+</div>

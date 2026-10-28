@@ -20,6 +20,19 @@ class WishesController < ApplicationController
     @wish = current_user.wishes.find(params[:id])
   end
 
+  def edit
+    @wish = current_user.wishes.find(params[:id])
+  end
+
+  def update
+    @wish = current_user.wishes.find(params[:id])
+    if @wish.update(wish_params)
+      redirect_to wish_path(@wish), notice: '叶えたいことを更新しました！'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def wish_params
