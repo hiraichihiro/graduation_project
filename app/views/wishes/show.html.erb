@@ -1,0 +1,37 @@
+<div style="max-width: 600px; margin: 40px auto; padding: 24px; font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;">
+  
+  <div style="background: #fffcfd; border: 1.5px solid #ffe6f2; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(255,182,193,0.2);">
+    
+    <h2 style="color: #ff99bb; text-align: center; margin-top: 0; margin-bottom: 24px; font-weight: 700;"><%= @wish.title %></h2>
+
+    <% if @wish.image.attached? %>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <%= image_tag @wish.image, style: "max-width: 100%; max-height: 250px; border-radius: 12px; object-fit: cover;" %>
+      </div>
+    <% end %>
+
+    <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 24px; color: #6d5b71; font-size: 15px;">
+      <p style="margin: 8px 0;">💰 目標金額: <strong>¥<%= number_to_currency(@wish.target_amount, unit: "", precision: 0) if @wish.target_amount.present? %></strong></p>
+      <p style="margin: 8px 0;">✨ 現在の貯金: <strong>0円 (0%)</strong></p>
+      <p style="margin: 8px 0;">📅 目標期限: <strong><%= @wish.deadline.strftime("%Y年%m月%d日") if @wish.deadline.present? %></strong></p>
+      
+      <% if @wish.link_url.present? %>
+        <p style="margin: 8px 0;">🔗 リンク: <%= link_to @wish.link_url, @wish.link_url, target: "_blank", rel: "noopener", style: "color: #ff99bb;" %></p>
+      <% end %>
+
+      <% if @wish.memo.present? %>
+        <p style="margin: 8px 0;">📝 メモ: <%= @wish.memo %></p>
+      <% end %>
+    </div>
+
+    <!-- 下部のボタンエリア -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+      <%= link_to "← 一覧に戻る", wishes_path, style: "color: #ff99bb; text-decoration: none; font-weight: bold;" %>
+      
+      <div>
+        <%# 編集・削除ボタンは次のステップで実装します！ %>
+      </div>
+    </div>
+
+  </div>
+</div>

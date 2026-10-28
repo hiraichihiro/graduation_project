@@ -7,41 +7,44 @@
 
   <% if @wishes.any? %>
     <% @wishes.each do |wish| %>
-      <div style="background: #fffcfd; border: 1.5px solid #ffe6f2; border-radius: 20px; padding: 20px; margin-bottom: 16px; box-shadow: 0 4px 15px rgba(255,182,193,0.15);">
-        
-        <% if wish.image.attached? %>
-          <div style="text-align: center; margin-bottom: 15px;">
-            <%= image_tag wish.image, style: "max-width: 100%; max-height: 200px; border-radius: 12px; object-fit: cover;" %>
-          </div>
-        <% end %>
+      <%# カード全体を link_to で囲む（リンクの下線や色が変わらないように指定） %>
+      <%= link_to wish_path(wish), style: "text-decoration: none; color: inherit; display: block; margin-bottom: 16px;" do %>
+        <div style="background: #fffcfd; border: 1.5px solid #ffe6f2; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(255,182,193,0.15);">
+          
+          <% if wish.image.attached? %>
+            <div style="text-align: center; margin-bottom: 15px;">
+              <%= image_tag wish.image, style: "max-width: 100%; max-height: 200px; border-radius: 12px; object-fit: cover;" %>
+            </div>
+          <% end %>
 
-        <h3 style="color: #6d5b71; margin-top: 0; margin-bottom: 12px; font-size: 18px;"><%= wish.title %></h3>
-        
-        <% if wish.target_amount.present? %>
-          <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
-            💰 目標金額: <strong>¥<%= number_to_currency(wish.target_amount, unit: "", precision: 0) %></strong>
-          </p>
-        <% end %>
+          <h3 style="color: #6d5b71; margin-top: 0; margin-bottom: 12px; font-size: 18px;"><%= wish.title %></h3>
+          
+          <% if wish.target_amount.present? %>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
+              💰 目標金額: <strong>¥<%= number_to_currency(wish.target_amount, unit: "", precision: 0) %></strong>
+            </p>
+          <% end %>
 
-        <% if wish.deadline.present? %>
-          <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
-            📅 目標期限: <%= wish.deadline.strftime("%Y年%m月%d日") %>
-          </p>
-        <% end %>
+          <% if wish.deadline.present? %>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
+              📅 目標期限: <%= wish.deadline.strftime("%Y年%m月%d日") %>
+            </p>
+          <% end %>
 
-        <% if wish.link_url.present? %>
-          <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
-            🔗 リンク: <%= link_to wish.link_url, wish.link_url, target: "_blank", rel: "noopener", style: "color: #ff99bb;" %>
-          </p>
-        <% end %>
+          <% if wish.link_url.present? %>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
+              🔗 リンクあり
+            </p>
+          <% end %>
 
-        <% if wish.memo.present? %>
-          <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px; background: #fff5f8; padding: 10px; border-radius: 10px;">
-            📝 <%= wish.memo %>
-          </p>
-        <% end %>
+          <% if wish.memo.present? %>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px; background: #fff5f8; padding: 10px; border-radius: 10px;">
+              📝 <%= wish.memo %>
+            </p>
+          <% end %>
 
-      </div>
+        </div>
+      <% end %>
     <% end %>
   <% else %>
     <div style="text-align: center; padding: 40px; color: #8a7b8e; background: #fffcfd; border: 1.5px dashed #ffe6f2; border-radius: 20px;">

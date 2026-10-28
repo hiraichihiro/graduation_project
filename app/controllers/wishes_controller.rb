@@ -16,6 +16,10 @@ class WishesController < ApplicationController
     @wishes = current_user.wishes.order(created_at: :desc)
   end
 
+  def show
+    @wish = current_user.wishes.find(params[:id])
+  end
+
   private
 
   def wish_params
