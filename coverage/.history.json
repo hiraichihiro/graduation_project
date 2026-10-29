@@ -88,6 +88,93 @@
             "line": 0.0
           }
         }
+      },
+      {
+        "created_at": "2026-10-29T17:49:17Z",
+        "branch": "feature/fat-controller-model-refactor",
+        "commit": "a6b418fd3e4f67e583762356089babedf05bb475",
+        "totals": {
+          "line": 20.39
+        },
+        "groups": {
+          "Channels": {
+            "line": 0.0
+          },
+          "Controllers": {
+            "line": 0.0
+          },
+          "Helpers": {
+            "line": 100.0
+          },
+          "Jobs": {
+            "line": 0.0
+          },
+          "Mailers": {
+            "line": 0.0
+          },
+          "Models": {
+            "line": 81.25
+          }
+        },
+        "files": {
+          "app/channels/application_cable/channel.rb": {
+            "line": 0.0
+          },
+          "app/channels/application_cable/connection.rb": {
+            "line": 0.0
+          },
+          "app/controllers/application_controller.rb": {
+            "line": 0.0
+          },
+          "app/controllers/savings_controller.rb": {
+            "line": 0.0
+          },
+          "app/controllers/sessions_controller.rb": {
+            "line": 0.0
+          },
+          "app/controllers/static_pages_controller.rb": {
+            "line": 0.0
+          },
+          "app/controllers/users_controller.rb": {
+            "line": 0.0
+          },
+          "app/controllers/wishes_controller.rb": {
+            "line": 0.0
+          },
+          "app/helpers/application_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/savings_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/sessions_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/users_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/wishes_helper.rb": {
+            "line": 100.0
+          },
+          "app/jobs/application_job.rb": {
+            "line": 0.0
+          },
+          "app/mailers/application_mailer.rb": {
+            "line": 0.0
+          },
+          "app/models/application_record.rb": {
+            "line": 100.0
+          },
+          "app/models/saving.rb": {
+            "line": 100.0
+          },
+          "app/models/user.rb": {
+            "line": 100.0
+          },
+          "app/models/wish.rb": {
+            "line": 72.72
+          }
+        }
       }
     ]
   }
