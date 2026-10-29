@@ -27,6 +27,13 @@ class SavingsController < ApplicationController
     end
   end
 
+  def destroy
+    @wish = current_user.wishes.find(params[:wish_id])
+    @saving = @wish.savings.find(params[:id])
+    @saving.destroy
+    redirect_to wish_path(@wish), notice: '貯金記録を削除しました。', status: :see_other
+  end
+
   private
 
   def saving_params
