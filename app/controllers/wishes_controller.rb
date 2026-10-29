@@ -18,6 +18,12 @@ class WishesController < ApplicationController
 
   def show
     @wish = current_user.wishes.find(params[:id])
+    
+    # 💡 追加：このWishに紐づく過去の金額とメモの一覧（重複なし）を取得する
+    @existing_amounts = @wish.savings.distinct.pluck(:amount).compact
+    @existing_memos = @wish.savings.distinct.pluck(:memo).reject(&:blank?)
+    
+    @saving = Saving.new unless @saving
   end
 
   def edit

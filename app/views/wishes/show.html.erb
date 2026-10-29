@@ -28,10 +28,23 @@
     <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 24px; color: #6d5b71;">
       <h3 style="color: #6d5b71; margin-top: 0; font-size: 18px;">💌 貯金を記録する</h3>
       
-      <%= form_with(model: [@wish, Saving.new], local: true) do |f| %>
+      <%= form_with(model: [@wish, @saving], local: true) do |f| %>
+        
+        <!-- 金額フィールド ＋ datalist -->
         <div style="margin-bottom: 12px;">
           <%= f.label :amount, "金額 (円)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
-          <%= f.number_field :amount, placeholder: "例: 1000", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+          
+          <!-- list属性で下の datalist と紐付ける -->
+          <%= f.number_field :amount, placeholder: "例: 1000", list: "amount-options", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+          
+          <!-- 過去の金額の候補リスト -->
+          <% if @existing_amounts.present? %>
+            <datalist id="amount-options">
+              <% @existing_amounts.each do |amount| %>
+                <option value="<%= amount %>">
+              <% end %>
+            </datalist>
+          <% end %>
         </div>
 
         <div style="margin-bottom: 12px;">
@@ -39,9 +52,21 @@
           <%= f.date_field :saved_at, value: Date.today, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
         </div>
 
+        <!-- メモフィールド ＋ datalist -->
         <div style="margin-bottom: 16px;">
           <%= f.label :memo, "メモ (任意)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
-          <%= f.text_area :memo, placeholder: "お小遣いから、など", rows: 2, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+          
+          <!-- list属性で下の datalist と紐付ける（※text_fieldに変更するとスムーズです） -->
+          <%= f.text_field :memo, placeholder: "お小遣いから、など", list: "memo-options", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+          
+          <!-- 過去のメモの候補リスト -->
+          <% if @existing_memos.present? %>
+            <datalist id="memo-options">
+              <% @existing_memos.each do |memo| %>
+                <option value="<%= memo %>">
+              <% end %>
+            </datalist>
+          <% end %>
         </div>
 
         <div>
