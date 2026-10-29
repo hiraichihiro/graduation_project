@@ -7,7 +7,6 @@
 
   <% if @wishes.any? %>
     <% @wishes.each do |wish| %>
-      <%# カード全体を link_to で囲む（リンクの下線や色が変わらないように指定） %>
       <%= link_to wish_path(wish), style: "text-decoration: none; color: inherit; display: block; margin-bottom: 16px;" do %>
         <div style="background: #fffcfd; border: 1.5px solid #ffe6f2; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(255,182,193,0.15);">
           
@@ -23,12 +22,23 @@
             <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
               💰 目標金額: <strong>¥<%= number_to_currency(wish.target_amount, unit: "", precision: 0) %></strong>
             </p>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
+              🌱 貯金済額: <strong>¥<%= number_to_currency(wish.total_saved, unit: "", precision: 0) %></strong>
+              （あと: <strong>¥<%= number_to_currency(wish.remaining_amount, unit: "", precision: 0) %></strong>）
+            </p>
           <% end %>
 
           <% if wish.deadline.present? %>
             <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
               📅 目標期限: <%= wish.deadline.strftime("%Y年%m月%d日") %>
             </p>
+          <% end %>
+
+          <%# 🌸 水色ベースに白文字の日割り計算の表示エリア %>
+          <% if wish.daily_savings_target.present? %>
+            <div style="margin-top: 12px; font-size: 13px; color: #ffffff; background: #9be0ff; padding: 10px 14px; border-radius: 14px; font-weight: bold; text-align: center; border: 1.5px solid #e0f5ff; box-shadow: 0 4px 12px rgba(155, 224, 255, 0.4);">
+            ⏰期限まであと <%= wish.remaining_days %> 日！ 1日あたり <strong>¥<%= number_to_currency(wish.daily_savings_target, unit: "", precision: 0) %></strong> 貯金しよう！
+            </div>
           <% end %>
 
           <% if wish.link_url.present? %>
@@ -48,7 +58,7 @@
     <% end %>
   <% else %>
     <div style="text-align: center; padding: 40px; color: #8a7b8e; background: #fffcfd; border: 1.5px dashed #ffe6f2; border-radius: 20px;">
-      <p style="margin: 0;">まだ「叶えたいこと」が登録されていません🌸</p>
+      <p style="margin: 0;">まだ「叶えたいこと」が登録されていません🫧</p>
     </div>
   <% end %>
 </div>
