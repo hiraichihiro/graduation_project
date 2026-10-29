@@ -10,7 +10,11 @@
       日々の積立で楽しくサポートする ゆめかわいい 貯金トラッカーです
     </p>
     <div>
-      <%= link_to " さっそく始めてみよう ", "#", style: "display: inline-block; background-color: #ffb6c1; color: white; padding: 14px 32px; border-radius: 30px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4); font-size: 1rem;" %>
+      <% if session[:user_id].present? %>
+        <%= link_to " さっそく始めてみよう ", wishes_path, style: "display: inline-block; background-color: #ffb6c1; color: white; padding: 14px 32px; border-radius: 30px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4); font-size: 1rem;" %>
+      <% else %>
+        <%= link_to " さっそく始めてみよう ", login_path, style: "display: inline-block; background-color: #ffb6c1; color: white; padding: 14px 32px; border-radius: 30px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4); font-size: 1rem;" %>
+      <% end %>
     </div>
   </div>
 
