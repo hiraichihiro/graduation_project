@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get "wishes/create"
   root "static_pages#top"
   get 'terms', to: 'static_pages#terms'
+  get 'privacy', to: 'static_pages#privacy'
+  
   # ユーザー登録用
   get "signup", to: "users#new"
   post "users", to: "users#create"
