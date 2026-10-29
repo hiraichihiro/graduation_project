@@ -90,9 +90,11 @@
                 <% end %>
               </div>
               
-              <!-- 💡 ここに編集ボタンを追加しました！ -->
-              <div>
+              <!-- 💡 編集ボタンとゴミ箱削除ボタンを横に並べるエリア -->
+              <div style="display: flex; gap: 6px; align-items: center;">
                 <%= link_to "編集", edit_wish_saving_path(@wish, saving), style: "background: #ffe6f2; color: #6d5b71; padding: 4px 10px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: bold;" %>
+                
+                <%= button_to "削除", wish_saving_path(@wish, saving), method: :delete, data: { turbo_confirm: "本当にこの貯金記録を削除しますか？" }, style: "background: #fff0f5; color: #d87093; border: 1px solid #ffb6c1; padding: 4px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; cursor: pointer;" %>
               </div>
             </li>
           <% end %>
