@@ -1,0 +1,58 @@
+<div style="max-width: 600px; margin: 40px auto; padding: 24px; font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <h2 style="color: #6d5b71; margin: 0; font-weight: 700; font-size: 20px;">🏆 叶ったことリスト</h2>
+    <div>
+      <%= link_to "← 叶えたいことリストへ", wishes_path, style: "background: #fff0f7; color: #ff80bf; padding: 10px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; border: 1.5px solid #ffe6f2; box-shadow: 0 4px 10px rgba(255, 182, 193, 0.2);" %>
+    </div>
+  </div>
+
+  <% if @wishes.any? %>
+    <% @wishes.each do |wish| %>
+      <%= link_to wish_path(wish), style: "text-decoration: none; color: inherit; display: block; margin-bottom: 16px;" do %>
+        <%# ✨ カードの枠線だけグリーン（#b5ead7）にして、構造は叶えたいことリストと完全に同じにします %>
+        <div style="background: #fffcfd; border: 1.5px solid #b5ead7; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(181,234,215,0.2);">
+          
+          <% if wish.image.attached? %>
+            <div style="text-align: center; margin-bottom: 15px;">
+              <%= image_tag wish.image, style: "max-width: 100%; max-height: 200px; border-radius: 12px; object-fit: cover;" %>
+            </div>
+          <% end %>
+
+          <%# ✏️ 「叶えたいことリスト」と全く同じタグ（h3）、同じ文字色（#6d5b71）、同じフォントサイズ（18px）に統一！ %>
+          <h3 style="color: #6d5b71; margin-top: 0; margin-bottom: 12px; font-size: 18px;"><font style="vertical-align: inherit;"><%= wish.title %></font></h3>
+          
+          <% if wish.target_amount.present? %>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
+              💰 目標金額: <strong>¥<%= number_to_currency(wish.target_amount, unit: "", precision: 0) %></strong>
+            </p>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
+              🌱 貯金済額: <strong>¥<%= number_to_currency(wish.total_saved, unit: "", precision: 0) %></strong>
+            </p>
+          <% end %>
+
+          <% if wish.deadline.present? %>
+            <p style="color: #8a7b8e; margin: 6px 0; font-size: 14px;">
+              📅 目標期限: <%= wish.deadline.strftime("%Y年%m月%d日") %>
+            </p>
+          <% end %>
+
+          <%# 🌸 達成メッセージエリア %>
+          <div style="margin-top: 12px; font-size: 14px; color: #3b5343; background: #f4faf7; padding: 10px 14px; border-radius: 14px; font-weight: bold; text-align: center; border: 1.5px solid #b5ead7; box-shadow: 0 4px 12px rgba(181, 234, 215, 0.3);">
+            🎉 <%= wish.fulfilled_at&.strftime('%Y年%-m月%-d日') %> に目標金額を達成しました！
+          </div>
+
+        </div>
+      <% end %>
+
+      <%# 🔄 未達成に戻すボタン（カードのリンクの外側に置くことで、ボタンとしても押しやすくしています） %>
+      <div style="margin-bottom: 25px; margin-top: -8px;">
+        <%= link_to "未達成に戻す", toggle_fulfillment_wish_path(wish), data: { turbo_method: :patch }, style: "display: block; text-align: center; background: #e0e0e0; color: #6d5b71; padding: 10px; border-radius: 14px; text-decoration: none; font-weight: bold; font-size: 14px;" %>
+      </div>
+
+    <% end %>
+  <% else %>
+    <div style="text-align: center; padding: 40px; color: #8a7b8e; background: #fffcfd; border: 1.5px dashed #ffe6f2; border-radius: 20px;">
+      <p style="margin: 0;">まだ叶ったことリストはありません🫧</p>
+    </div>
+  <% end %>
+</div>

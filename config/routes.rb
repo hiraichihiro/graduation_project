@@ -16,6 +16,12 @@ Rails.application.routes.draw do
 
   # 叶えたいこと
   resources :wishes, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+    collection do
+      get :fulfilled # 🏆 叶ったこと一覧画面用のルートを追加
+    end
+    member do
+      patch :toggle_fulfillment # ✨ 達成 / 未達成を切り替えるルートを追加
+    end
     resources :savings, only: [:create, :edit, :update, :destroy]
   end
   
