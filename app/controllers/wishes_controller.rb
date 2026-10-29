@@ -45,6 +45,22 @@ class WishesController < ApplicationController
     redirect_to wishes_path, notice: '叶えたいこと・欲しいものを削除しました。', status: :see_other
   end
 
+  def fulfilled
+    @wishes = current_user.wishes.where.not(fulfilled_at: nil).order(fulfilled_at: :desc)
+  end
+
+  # ✨ 達成 / 未達成を切り替えるアクション
+  def toggle_fulfillment
+    @wish = current_user.wishes.find(params[:id])
+    if @wish.fulfilled_at.present?
+      @wish.update(fulfilled_at: nil)
+      redirect_to wishes_path, notice: "未達成に戻しました🌱"
+    else
+      @wish.update(fulfilled_at: Time.current)
+      redirect_to fulfilled_wishes_path, notice: "おめでとうございます！🎉 叶ったことリストに移動しました✨"
+    end
+  end
+
   private
 
   def wish_params
