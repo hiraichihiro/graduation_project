@@ -49,6 +49,7 @@ group :development, :test do
   # テスト用gem
   gem "rspec-rails"
   gem "factory_bot_rails"
+  gem 'bullet'
 end
 
 group :development do
