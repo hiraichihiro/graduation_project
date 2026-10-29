@@ -2,21 +2,27 @@
   
   <div style="background: #fffcfd; border: 1.5px solid #ffe6f2; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(255,182,193,0.2);">
     
-    <h2 style="color: #ff99bb; text-align: center; margin-top: 0; margin-bottom: 24px; font-weight: 700;"><%= @wish.title %></h2>
+    <h2 style="color: #ff80bf; text-align: center; margin-top: 0; margin-bottom: 24px; font-weight: 800;"><%= @wish.title %></h2>
 
     <% if @wish.image.attached? %>
       <div style="text-align: center; margin-bottom: 20px;">
-        <%= image_tag @wish.image, style: "max-width: 100%; max-height: 250px; border-radius: 12px; object-fit: cover;" %>
+        <%= image_tag @wish.image, style: "max-width: 100%; max-height: 250px; border-radius: 12px; border: 1.5px solid #ffe6f2; object-fit: cover;" %>
       </div>
     <% end %>
 
-    <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 24px; color: #6d5b71; font-size: 15px;">
-      <p style="margin: 8px 0;">🌟 目標金額: <strong>¥<%= number_to_currency(@wish.target_amount, unit: "", precision: 0) if @wish.target_amount.present? %></strong></p>
-      <p style="margin: 8px 0;">🫧  現在の貯金: <strong>0円 (0%)</strong></p>
-      <p style="margin: 8px 0;">📅 目標期限: <strong><%= @wish.deadline.strftime("%Y年%m月%d日") if @wish.deadline.present? %></strong></p>
+    <!-- 🌸 金額・進捗・期限の情報エリア -->
+    <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 20px; color: #6d5b71; font-size: 15px; border: 1px solid #ffe6f2;">
+      <% if @wish.target_amount.present? %>
+        <p style="margin: 8px 0;">🌟 目標金額: <strong>¥<%= number_to_currency(@wish.target_amount, unit: "", precision: 0) %></strong></p>
+        <p style="margin: 8px 0;">🌱 現在の貯金: <strong>¥<%= number_to_currency(@wish.total_saved, unit: "", precision: 0) %></strong> （あと: <strong>¥<%= number_to_currency(@wish.remaining_amount, unit: "", precision: 0) %></strong>）</p>
+      <% end %>
+
+      <% if @wish.deadline.present? %>
+        <p style="margin: 8px 0;">📅 目標期限: <strong><%= @wish.deadline.strftime("%Y年%m月%d日") %></strong></p>
+      <% end %>
       
       <% if @wish.link_url.present? %>
-        <p style="margin: 8px 0;">🔗 リンク: <%= link_to @wish.link_url, @wish.link_url, target: "_blank", rel: "noopener", style: "color: #ff99bb;" %></p>
+        <p style="margin: 8px 0;">🔗 リンク: <%= link_to @wish.link_url, @wish.link_url, target: "_blank", rel: "noopener", style: "color: #ff80bf;" %></p>
       <% end %>
 
       <% if @wish.memo.present? %>
@@ -24,20 +30,23 @@
       <% end %>
     </div>
 
+    <!-- 💡 一覧画面とお揃い！澄んだソーダブルーの日割り計算エリア -->
+    <% if @wish.daily_savings_target.present? %>
+      <div style="margin-bottom: 24px; font-size: 13px; color: #ffffff; background: #9be0ff; padding: 12px 16px; border-radius: 14px; font-weight: bold; text-align: center; border: 1.5px solid #e0f5ff; box-shadow: 0 4px 12px rgba(155, 224, 255, 0.4);">
+        ⏰ 期限まであと <%= @wish.remaining_days %> 日！ 1日あたり <strong>¥<%= number_to_currency(@wish.daily_savings_target, unit: "", precision: 0) %></strong> 貯金しよう！
+      </div>
+    <% end %>
+
     <!-- 💡 新しく追加した「貯金記録の入力フォーム」 -->
-    <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 24px; color: #6d5b71;">
-      <h3 style="color: #6d5b71; margin-top: 0; font-size: 18px;">💌 貯金を記録する</h3>
+    <div style="background: #fff5f8; border-radius: 16px; padding: 20px; margin-bottom: 24px; color: #6d5b71; border: 1px solid #ffe6f2;">
+      <h3 style="color: #ff80bf; margin-top: 0; font-size: 18px; font-weight: 700;">💌 貯金を記録する</h3>
       
       <%= form_with(model: [@wish, @saving], local: true) do |f| %>
         
-        <!-- 金額フィールド ＋ datalist -->
         <div style="margin-bottom: 12px;">
           <%= f.label :amount, "金額 (円)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
+          <%= f.number_field :amount, placeholder: "例: 1000", list: "amount-options", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box; background: #ffffff;" %>
           
-          <!-- list属性で下の datalist と紐付ける -->
-          <%= f.number_field :amount, placeholder: "例: 1000", list: "amount-options", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
-          
-          <!-- 過去の金額の候補リスト -->
           <% if @existing_amounts.present? %>
             <datalist id="amount-options">
               <% @existing_amounts.each do |amount| %>
@@ -49,17 +58,13 @@
 
         <div style="margin-bottom: 12px;">
           <%= f.label :saved_at, "貯金した日付", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
-          <%= f.date_field :saved_at, value: Date.today, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
+          <%= f.date_field :saved_at, value: Date.today, style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box; background: #ffffff;" %>
         </div>
 
-        <!-- メモフィールド ＋ datalist -->
         <div style="margin-bottom: 16px;">
           <%= f.label :memo, "メモ (任意)", style: "display: block; font-weight: bold; margin-bottom: 4px; font-size: 14px;" %>
+          <%= f.text_field :memo, placeholder: "お小遣いから、など", list: "memo-options", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box; background: #ffffff;" %>
           
-          <!-- list属性で下の datalist と紐付ける（※text_fieldに変更するとスムーズです） -->
-          <%= f.text_field :memo, placeholder: "お小遣いから、など", list: "memo-options", style: "width: 100%; padding: 8px; border: 1px solid #ffe6f2; border-radius: 8px; box-sizing: border-box;" %>
-          
-          <!-- 過去のメモの候補リスト -->
           <% if @existing_memos.present? %>
             <datalist id="memo-options">
               <% @existing_memos.each do |memo| %>
@@ -70,27 +75,26 @@
         </div>
 
         <div>
-          <%= f.submit "貯金を記録する", style: "background: #ff99bb; color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%;" %>
+          <%= f.submit "貯金を記録する", style: "background: #ffb3d9; color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; box-shadow: 0 4px 10px rgba(255, 179, 217, 0.4);" %>
         </div>
       <% end %>
     </div>
 
     <!-- 貯金履歴の一覧 -->
     <div style="margin-bottom: 24px; color: #6d5b71;">
-      <h3 style="color: #6d5b71; font-size: 18px;">🌱 貯金履歴</h3>
+      <h3 style="color: #ff80bf; font-size: 18px; font-weight: 700;">🌱 貯金履歴</h3>
       <% if @wish.savings.any? %>
         <ul style="padding-left: 20px; margin: 0;">
           <% @wish.savings.order(saved_at: :desc).each do |saving| %>
             <li style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <strong><%= saving.saved_at.strftime("%Y年%m月%d日") %></strong>：
-                <span style="color: #d87093; font-weight: bold;">¥<%= number_to_currency(saving.amount, unit: "", precision: 0) %></span>
+                <span style="color: #ff80bf; font-weight: bold;">¥<%= number_to_currency(saving.amount, unit: "", precision: 0) %></span>
                 <% if saving.memo.present? %>
                   （<%= saving.memo %>）
                 <% end %>
               </div>
               
-              <!-- 💡 編集ボタンとゴミ箱削除ボタンを横に並べるエリア -->
               <div style="display: flex; gap: 6px; align-items: center;">
                 <%= link_to "編集", edit_wish_saving_path(@wish, saving), style: "background: #ffe6f2; color: #6d5b71; padding: 4px 10px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: bold;" %>
                 
@@ -100,13 +104,13 @@
           <% end %>
         </ul>
       <% else %>
-        <p style="font-size: 14px; color: #999;">まだ貯金履歴はありません。</p>
+        <p style="font-size: 14px; color: #8a7b8e;">まだ貯金履歴はありません。</p>
       <% end %>
     </div>
     
     <!-- 下部のボタンエリア -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-      <%= link_to "← 一覧に戻る", wishes_path, style: "color: #ff99bb; text-decoration: none; font-weight: bold;" %>
+      <%= link_to "← 一覧に戻る", wishes_path, style: "color: #ff80bf; text-decoration: none; font-weight: bold;" %>
       
       <div style="display: flex; gap: 10px; align-items: center;">
         <%= link_to "✏️ 編集する", edit_wish_path(@wish), style: "background: #ffe6f2; color: #6d5b71; padding: 8px 16px; border-radius: 15px; text-decoration: none; font-weight: bold; font-size: 14px;" %>
