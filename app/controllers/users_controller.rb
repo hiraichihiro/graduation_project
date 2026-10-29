@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       # 登録成功時の処理（あとでログイン状態の保持
       session[:user_id] = @user.id
       flash[:success] = "ユーザー登録が完了しました！"
-      redirect_to root_path # いったんトップページに飛ばす設定にする
+      redirect_to wishes_path # いったんトップページに飛ばす設定にする
     else
       # 登録失敗時は新規登録画面を再表示
       render :new, status: :unprocessable_entity

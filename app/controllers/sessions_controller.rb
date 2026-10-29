@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       # 3. ログイン成功：セッションにユーザーIDを保存してマイページ等にリダイレクト
       session[:user_id] = user.id
       flash[:notice] = "ログインしました"
-      redirect_to root_path # 後でマイページなどに変更してもOKです
+      redirect_to wishes_path # 後でマイページなどに変更してもOKです
     else
       # 4. ログイン失敗：エラーメッセージを出してログイン画面を再表示
       flash.now[:alert] = "メールアドレスまたはパスワードが違います"
