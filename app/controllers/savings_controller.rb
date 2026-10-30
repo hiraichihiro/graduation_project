@@ -1,6 +1,6 @@
 class SavingsController < ApplicationController
   def create
-    @wish = Wish.find(params[:wish_id])
+    @wish = current_user.wishes.find(params[:wish_id]) # ← ここを修正！
     @saving = @wish.savings.build(saving_params)
     
     if @saving.save
@@ -12,12 +12,12 @@ class SavingsController < ApplicationController
   end
 
   def edit
-    @wish = Wish.find(params[:wish_id])
+    @wish = current_user.wishes.find(params[:wish_id]) # ← ここを修正！
     @saving = @wish.savings.find(params[:id])
   end
 
   def update
-    @wish = Wish.find(params[:wish_id])
+    @wish = current_user.wishes.find(params[:wish_id]) # ← ここを修正！
     @saving = @wish.savings.find(params[:id])
     
     if @saving.update(saving_params)
