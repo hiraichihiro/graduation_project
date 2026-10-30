@@ -7,6 +7,9 @@ class Wish < ApplicationRecord
   # バリデーション（タイトルは必須）
   validates :title, presence: true
 
+  # 目標金額が空でないこと、かつ0以上の数値であること
+  validates :target_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
+
   # 1. 現在の貯金額の合計
   def total_saved
     savings.sum(:amount)

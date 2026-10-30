@@ -27,9 +27,15 @@
     <!-- 共通ヘッダーの読み込み -->
     <%= render 'shared/header' %>
     
-    <!-- フラッシュメッセージ表示エリア（枠線をなしにしてスッキリ版） -->
+    <!-- フラッシュメッセージ表示エリア（成功・エラーで色分け） -->
     <% flash.each do |message_type, message| %>
-      <div style="background: #fff0f5; color: #ff80bf; padding: 12px 24px; border-radius: 20px; margin: 15px auto; max-width: 500px; text-align: center; font-weight: 700;">
+      <% 
+        # notice（成功）は爽やかなグリーン、それ以外（エラー）は「入力エラー枠」と同じピンク＆枠線にする
+        bg_color     = (message_type == 'notice') ? '#e6fff9' : '#ffe6eb'
+        text_color   = (message_type == 'notice') ? '#00b386' : '#ff6b81'
+        border_style = (message_type == 'notice') ? 'none'    : '1.5px solid #ffb6c1'
+      %>
+      <div style="background: <%= bg_color %>; color: <%= text_color %>; border: <%= border_style %>; padding: 12px 24px; border-radius: 20px; margin: 15px auto; max-width: 500px; text-align: center; font-weight: 700;">
         <%= message %>
       </div>
     <% end %>
