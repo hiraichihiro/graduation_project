@@ -1,4 +1,7 @@
 class WishesController < ApplicationController
+
+  before_action :logged_in_user
+
   def new
     @wish = Wish.new
   end
@@ -65,5 +68,12 @@ class WishesController < ApplicationController
 
   def wish_params
     params.require(:wish).permit(:title, :target_amount, :deadline, :link_url, :memo, :image)
+  end
+
+  def logged_in_user
+    unless current_user
+      flash[:alert] = 'ログインしてください'
+      redirect_to login_path # ログイン画面のパス（routes.rbのルーティングに合わせて変更してね）
+    end
   end
 end
