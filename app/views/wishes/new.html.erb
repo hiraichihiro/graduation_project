@@ -5,6 +5,18 @@
 
   <%= form_with model: @wish, local: true do |f| %>
 
+    <!-- 👇 ここからエラーメッセージ表示を追加！ -->
+    <% if @wish.errors.any? %>
+      <div style="background-color: #ffe6eb; border: 1.5px solid #ffb6c1; border-radius: 14px; padding: 15px; margin-bottom: 20px; text-align: left;">
+        <p style="color: #ff6b81; font-weight: 700; margin-bottom: 5px; font-size: 0.9rem;">⚠️ 入力内容にエラーがあります</p>
+        <ul style="color: #ff6b81; font-size: 0.85rem; padding-left: 20px; margin: 0;">
+          <% @wish.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div style="margin-bottom: 18px;">
       <%= f.label :title, "叶えたいこと・欲しいもの", style: "font-weight: 700; color: #8a7b8e; display: block; margin-bottom: 6px; font-size: 0.95rem;" %>
       <%= f.text_field :title, placeholder: "例: ディズニーホテルの宿泊", required: true, style: "width: 100%; border-radius: 14px; border: 1.5px solid #ffe6f2; padding: 10px 14px; background: #fffcfd; color: #8a7b8e; font-family: inherit; font-size: 0.95rem;" %>
